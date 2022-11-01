@@ -7,7 +7,6 @@ output:
 ---
 
 # Loading data
-
 ```{r}
 library(tidyverse)
 library(p8105.datasets)
