@@ -1,0 +1,15 @@
+---
+title: "Allison's website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+---
+
+## Introduction
+
+Hi, I am Allison, a second year MS Biostatistics student at Columbia University! I have an undergraduate degree in Mathematics from Amherst College.
+
+## Resume
+[Click here for resume](./allison_resume.html)
