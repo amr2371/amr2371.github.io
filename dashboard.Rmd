@@ -1,0 +1,72 @@
+---
+title: "Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source: embed
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+library(flexdashboard)
+```
+
+```{r}
+data("instacart")
+instacart <- instacart %>% drop_na(product_name)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+instacart %>% 
+ filter(product_name == "Okra") %>% 
+  mutate(
+    text_label = str_c("Added to cart order: ", add_to_cart_order, "\nReordered:", reordered)
+  ) %>% 
+  plot_ly(x = ~days_since_prior_order, type = "scatter", text = ~text_label, mode = "markers") %>% 
+  layout(title = "Days Since Ordering Okra",
+         xaxis = list(title = "Number of Days Since Prior Okra Order"),
+         yaxis = list(title = "Count"))
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+instacart %>% 
+  filter(department == "snacks",
+         aisle == "chips pretzels",
+         str_detect(product_name, "Barbeque")) %>% 
+  mutate(product_name = forcats::fct_reorder(product_name, order_hour_of_day)) %>% 
+  plot_ly(x = ~product_name, y = ~order_hour_of_day, type = "box",
+          color = ~product_name, colors = "viridis") %>% 
+  layout(title = "Hour of the Day Barbeque Chips Are Ordered",
+         xaxis = list(title = "Product Name"),
+         yaxis = list(title = "Hour of Day"))
+```
+
+### Chart C
+
+```{r}
+instacart %>% 
+  filter(department == "snacks",
+         aisle == "chips pretzels",
+         str_detect(product_name, "Barbeque Potato Chips")) %>% 
+  mutate(product_name = forcats::fct_reorder(product_name, order_hour_of_day)) %>% 
+   count(product_name) %>% 
+  plot_ly(x = ~product_name, y = ~n, type = "bar",
+          color = ~product_name, colors = "viridis") %>% 
+  layout(title = "Number of each Barbeque Potato Chips Ordered",
+         xaxis = list(title = "Product Name"),
+         yaxis = list(title = "Number ordered")) 
+```
+
