@@ -13,3 +13,6 @@ Hi, I am Allison, a second year MS Biostatistics student at Columbia University!
 
 ## Resume
 [Click here for resume](./allison_resume.html)
+
+## Contact Information
+* [This](https://github.com/amr2371) is my github repository
